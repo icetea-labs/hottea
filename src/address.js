@@ -21,18 +21,21 @@ const getAccountInfo = async address => {
 
 const getTxHistory = async address => {
   try {
-    const fromList = await tweb3.searchTransactions("tx.from='" + address + "'", { per_page: 100 })
-    const toList = await tweb3.searchTransactions("tx.to='" + address + "'", { per_page: 100 })
-    const payerList = await tweb3.searchTransactions("tx.payer='" + address + "'", { per_page: 100 })
+    const fromList = await tweb3.searchTransactions("system.from='" + address + "'", { per_page: 100 })
+    const toList = await tweb3.searchTransactions("system.to='" + address + "'", { per_page: 100 })
+    const payerList = await tweb3.searchTransactions("system.payer='" + address + "'", { per_page: 100 })
     const all = fromList.txs.concat(toList.txs).concat(payerList.txs).map(tweb3.utils.decodeTxResult)
-
+    
     if (all.length) {
       all.forEach(x => {
-        x.from = x.tx.from || x.tags['tx.from']
+        const e = x.events.filter((el) => {
+          return el.eventName === 'tx'
+        })
+        x.from = x.tx.from || e[0].eventData.from
         x.fromText = fmtHex(x.from)
-        x.to = x.tx.to || x.tags['tx.to']
+        x.to = x.tx.to || e[0].eventData.to
         x.toText = fmtHex(x.to)
-        x.payer = x.tx.payer || x.tags['tx.payer']
+        x.payer = x.tx.payer || e[0].eventData.payer
         x.payerText = fmtHex(x.payer)
         x.tx.data = x.tx.data || {}
 

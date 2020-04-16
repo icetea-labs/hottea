@@ -13,6 +13,7 @@ const getBlockInfo = async height => {
   const block = info.block_metas[0]
 
   const data = block.header
+  data.num_txs = block.num_txs
   data.lastHeight = lastHeight
   data.hash = block.block_id.hash
   data.prevHash = data.last_block_id.hash
@@ -31,14 +32,17 @@ const getTxByBlock = async height => {
   try {
     const data = await tweb3.searchTransactions('tx.height=' + height, { per_page: 100 })
     const all = data.txs.map(tweb3.utils.decodeTxResult)
-    console.log(all)
+    
     if (all.length) {
       all.forEach(x => {
-        x.from = x.tx.from || x.tags['tx.from']
+        const e = x.events.filter((el) => {
+          return el.eventName === 'tx'
+        })
+        x.from = x.tx.from || e[0].eventData.from
         x.fromText = fmtHex(x.from)
-        x.to = x.tx.to || x.tags['tx.to']
+        x.to = x.tx.to || e[0].eventData.to
         x.toText = fmtHex(x.to)
-        x.payer = x.tx.payer || x.tags['tx.payer']
+        x.payer = x.tx.payer || e[0].eventData.payer
         x.payerText = fmtHex(x.payer)
         x.tx.data = x.tx.data || {}
 

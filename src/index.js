@@ -13,7 +13,7 @@ function fmtBlocks (blocks) {
     height: b.header.height,
     shash: fmtHex(b.block_id.hash, 10),
     timestamp: fmtTime(b.header.time),
-    txCount: b.header.num_txs
+    txCount: b.num_txs
   }))
 }
 
@@ -23,10 +23,12 @@ function fmtTxs (txs) {
     const data = t.tx
     t.shash = fmtHex(t.hash)
     t.blockHeight = t.height
-
-    t.from = data.from || t.tags['tx.from']
+    const e = t.events.filter((el) => {
+      return el.eventName === 'tx'
+    })
+    t.from = data.from || e[0].eventData.from
     t.fromText = fmtHex(t.from, 6)
-    t.to = data.to || t.tags['tx.to']
+    t.to = data.to || e[0].eventData.to
     t.toText = fmtHex(t.to, 6)
     t.value = toTEA(data.value).toLocaleString() + ' TEA'
     t.fee = data.fee
@@ -73,7 +75,7 @@ async function loadData () {
     let txCount = 0
     let fromBlock = myBlocks[0].header.height
     for (let i = 0; i < blockCount; i++) {
-      const num = +myBlocks[i].header.num_txs
+      const num = +myBlocks[i].num_txs
       txCount += num
       fromBlock--
       if (txCount > MAX_SHOW_TX) {
