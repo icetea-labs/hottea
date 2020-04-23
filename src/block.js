@@ -32,7 +32,7 @@ const getTxByBlock = async height => {
   try {
     const data = await tweb3.searchTransactions('tx.height=' + height, { per_page: 100 })
     const all = data.txs.map(tweb3.utils.decodeTxResult)
-    
+
     if (all.length) {
       all.forEach(x => {
         const e = x.events.filter((el) => {

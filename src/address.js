@@ -25,7 +25,7 @@ const getTxHistory = async address => {
     const toList = await tweb3.searchTransactions("system.to='" + address + "'", { per_page: 100 })
     const payerList = await tweb3.searchTransactions("system.payer='" + address + "'", { per_page: 100 })
     const all = fromList.txs.concat(toList.txs).concat(payerList.txs).map(tweb3.utils.decodeTxResult)
-    
+
     if (all.length) {
       all.forEach(x => {
         const e = x.events.filter((el) => {

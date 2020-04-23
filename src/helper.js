@@ -114,7 +114,7 @@ export function tryStringifyJson (p, replacer, space) {
 export async function loadAddresses () {
   try {
     var count = await tweb3.wallet.loadFromStorage('x', undefined, [])
-    console.log(count, tweb3.wallet.accounts)
+    // console.log(count, tweb3.wallet.accounts)
     if (!count) {
       window.alert('Wallet empty. Please go to Wallet tab to create account.')
       return
