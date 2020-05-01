@@ -19,9 +19,9 @@ const launchWeb = async (options) => {
     });
   })
 
-  const port = (options && options.port) ? options.port : 3000
+  const port = (options && options.port) ? options.port : 3001
   server.listen(port, () => {
-    console.log('Running at http://localhost:3000');
+    console.log('Running at http://localhost:3001');
   });
 }
 
@@ -32,7 +32,7 @@ if (process.argv.length < 3) {
   program
     .command('web')
     .description('start a blockchain web for development')
-    .option('-p, --port <port>', 'web server port, default to 3000')
+    .option('-p, --port <port>', 'web server port, default to 3001')
     .action(launchWeb)
     
   program.parse(process.argv)

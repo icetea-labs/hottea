@@ -14,14 +14,14 @@ body {
     margin-bottom: 16px;
     position: relative;
 }
-.notice::after {
-    content: 'TESNET';
+.notice .network {
     position: absolute;
     right: 10px;
     top: 10px;
     display: inline-block;
     padding: 2px 8px;
     background-color: bisque;
+    cursor: pointer;
 }
 #info:empty {
     display: none;
