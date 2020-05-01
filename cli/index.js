@@ -4,25 +4,25 @@ const { version } = require('../package.json')
 const path = require('path')
 const { spawn } = require('child_process')
 const debugFactory = require('debug')
-debugFactory.enable('icetea*')
-const debug = debugFactory('iceteadev')
+debugFactory.enable('hottea*')
+const debug = debugFactory('hottea')
 const program = require('commander')
+const handler = require('serve-handler');
+const http = require('http');
 
-const launchWeb = async (params) => {
-  const daemon = path.resolve(__dirname, '../node_modules/webpack-dev-server/bin/webpack-dev-server.js')
-  const host = params ? params.host : undefined
-  const env = { ...process.env }
-  if (host) env.ICETEA_ENDPOINT = host
-  const child = spawn(daemon, ['--open', '--config', 'webpack.dev.js'], {
-    env,
-    cwd: path.resolve(__dirname, '..')
+const launchWeb = async (options) => {
+  const server = http.createServer((request, response) => {
+    // You pass two more arguments for config and middleware
+    // More details here: https://github.com/zeit/serve-handler#options
+    return handler(request, response, {
+      public: "dev_dist"
+    });
   })
-  child.stdout.pipe(process.stdout)
-  child.stderr.pipe(process.stderr)
 
-  child.on('exit', code => {
-    debug(`Web server exit code: ${code}`)
-  })
+  const port = (options && options.port) ? options.port : 3000
+  server.listen(port, () => {
+    console.log('Running at http://localhost:3000');
+  });
 }
 
 if (process.argv.length < 3) {
@@ -32,7 +32,7 @@ if (process.argv.length < 3) {
   program
     .command('web')
     .description('start a blockchain web for development')
-    .option('-h, --host <host>', 'icetea node http or ws', 'ws://localhost:26657/websocket')
+    .option('-p, --port <port>', 'web server port, default to 3000')
     .action(launchWeb)
     
   program.parse(process.argv)

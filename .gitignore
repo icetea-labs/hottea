@@ -71,8 +71,10 @@ typings/
 
 # Documentation
 docs
-web_dist
 scripts/tmp.js
 
 #Playground
 playground/
+
+dev_dist
+dist

@@ -19,10 +19,6 @@ module.exports = {
     block: path.resolve(__dirname, './src/block.js'),
     election: path.resolve(__dirname, './src/election.js')
   },
-  output: {
-    path: path.resolve(__dirname, 'web_dist'),
-    filename: '[name].js'
-  },
 
   resolve: {
     alias: {

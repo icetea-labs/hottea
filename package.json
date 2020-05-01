@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "description": "icetea devtools",
   "scripts": {
-    "start": "standard --fix && webpack-dev-server --open --config webpack.dev.js",
-    "dev": "standard --fix && webpack-dev-server --config webpack.dev.js",
+    "start": "webpack-dev-server --open --config webpack.dev.js",
+    "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "standard --fix",
     "build": "webpack --config webpack.prod.js",
     "build:test": "webpack --config webpack.t.js",
     "build:dev": "webpack --config webpack.dev.js",
-    "build:server": "node --max_old_space_size=1096 node_modules/webpack/bin/webpack.js --config webpack.prod.js"
+    "postinstall": "webpack --config webpack.dev.js"
   },
   "keywords": [
     "icetea",
@@ -46,6 +46,7 @@
     "jquery": "^3.4.0",
     "json-formatter-js": "^2.3.4",
     "prismjs": "^1.19.0",
+    "serve": "^11.3.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
