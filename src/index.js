@@ -18,7 +18,6 @@ function fmtBlocks (blocks) {
 }
 
 function fmtTxs (txs) {
-  txs = txs.map(utils.decodeTxResult)
   txs.forEach(t => {
     const data = t.tx
     t.shash = fmtHex(t.hash)
@@ -43,7 +42,7 @@ function fmtTxs (txs) {
       t.txType = 'call'
     }
   })
-  return txs.reverse()
+  return txs
 }
 
 function showMessage () {
@@ -68,22 +67,11 @@ async function loadData () {
   if (myBlocks && myBlocks.length && myBlocks.length > blockCount) {
     blockCount = myBlocks.length
 
+    // by default, getBlocks return latest 30 blocks
     document.getElementById('blocks').innerHTML = blockTemplate(fmtBlocks(myBlocks))
 
-    // load txs info
-    const MAX_SHOW_TX = 30 // only show last 30 txs
-    let txCount = 0
-    let fromBlock = myBlocks[0].header.height
-    for (let i = 0; i < blockCount; i++) {
-      const num = +myBlocks[i].num_txs
-      txCount += num
-      fromBlock--
-      if (txCount > MAX_SHOW_TX) {
-        break
-      }
-    }
-
-    const myTxs = await tweb3.searchTransactions('tx.height>' + fromBlock, { per_page: txCount })
+    const myTxs = await tweb3.searchTransactions('tx.height>0', {order_by: 'desc'})
+    console.log(myTxs)
     if (myTxs.txs && myTxs.txs.length) {
       // console.log(myTxs)
       document.getElementById('transactions').innerHTML = txTemplate(fmtTxs(myTxs.txs))

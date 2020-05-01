@@ -52,7 +52,7 @@ $('#form').submit(async function (e) {
       mode = 0
       src = await transpile(src, { prettier: true })
     }
-    const tx = await tweb3.deploy(mode, src, params, {
+    const tx = await tweb3.deploy({ mode, data: src, arguments: params }, {
       signers,
       from,
       payer,
