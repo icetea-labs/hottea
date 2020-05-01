@@ -1,5 +1,6 @@
 import { IceteaWeb3 } from '@iceteachain/web3'
-export const endpoint = localStorage['endpoint'] || process.env.ICETEA_ENDPOINT || 'ws://localhost:3001/websocket'
+const defaultEndpoint = process.env.ICETEA_ENDPOINT || 'ws://localhost:26657/websocket'
+export const endpoint = localStorage['endpoint'] || defaultEndpoint
 export const tweb3 = new IceteaWeb3(endpoint)
 export default tweb3
 window.tweb3 = tweb3
@@ -13,17 +14,17 @@ window.addEventListener('DOMContentLoaded', () => {
         tag.textContent = endpoint
 
         tag.addEventListener('click', () => {
-            let newRpc = window.prompt('Enter new RPC endpoint or clear to use defaults. Example:\nws://localhost:3001/websocket\nwss://rpc.icetea.io/websocket', endpoint)
-            if (newRpc == null) return // Cancel hit
-            newRpc = newRpc.trim()
+            console.log(endpoint)
+            const candidate = (endpoint === defaultEndpoint) ? 'wss://rpc.icetea.io/websocket' : defaultEndpoint
+            if (window.confirm('Switch to ' + candidate + '?')) {
+                if (candidate === defaultEndpoint) {
+                    localStorage.removeItem('endpoint')
+                } else {
+                    localStorage.setItem('endpoint', candidate)
+                }
 
-            if (!newRpc.length) {
-                localStorage.removeItem('endpoint')
-            } else {
-                localStorage.setItem('endpoint', newRpc)
+                window.location.reload()
             }
-
-            window.location.reload()
         })
 
         noticeTag.appendChild(tag)
