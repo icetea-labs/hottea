@@ -71,9 +71,7 @@ async function loadData () {
     document.getElementById('blocks').innerHTML = blockTemplate(fmtBlocks(myBlocks))
 
     const myTxs = await tweb3.searchTransactions('tx.height>0', {order_by: 'desc'})
-    console.log(myTxs)
     if (myTxs.txs && myTxs.txs.length) {
-      // console.log(myTxs)
       document.getElementById('transactions').innerHTML = txTemplate(fmtTxs(myTxs.txs))
     }
 
