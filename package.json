@@ -7,9 +7,7 @@
     "dev": "webpack-dev-server --config webpack.dev.js",
     "lint": "standard --fix",
     "build": "webpack --config webpack.prod.js",
-    "build:test": "webpack --config webpack.t.js",
-    "build:dev": "webpack --config webpack.dev.js",
-    "postinstall": "webpack --config webpack.dev.js"
+    "build:dev": "webpack --config webpack.dev.js"
   },
   "keywords": [
     "icetea",
@@ -62,6 +60,11 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "webpack --config webpack.dev.js"
+    }
   },
   "bin": {
     "hottea": "cli/index.js"
