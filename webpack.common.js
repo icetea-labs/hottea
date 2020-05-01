@@ -1,7 +1,6 @@
 // This webpack config is for sample client in 'web' folder
 
 const path = require('path')
-
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
