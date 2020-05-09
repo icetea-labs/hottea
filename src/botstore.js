@@ -66,19 +66,29 @@ const store = {
     for (const bot of keys) {
       try {
         const botInfo = { address: '', category: 'category', name: 'name', icon: 'icon', description: 'description' }
-        const contract = tweb3.contract(bot)
-        const info = await contract.methods.botInfo().callPure().catch(console.error)
-        botInfo.address = bot
-        botInfo.category = bots[bot].category
-        botInfo.icon = bots[bot].icon
-        botInfo.name = bots[bot].name || info.name
-        botInfo.bot = bot
-        botInfo.alias = bot.split('.', 2)[1]
-        botInfo.description = bots[bot].description || info.description || ''
-        if (botInfo.description.length > 36) {
-          botInfo.description = botInfo.description.substring(0, 36) + '...'
+        const funcs = await tweb3.getMetadata(bot)
+        if (funcs.botInfo) {
+          const ct = tweb3.contract(bot)
+          let info = {}
+          if (funcs.botInfo.decorators[0] === 'view') {
+            info = await ct.methods.botInfo().call().catch(console.error)
+          } else {
+            info = await ct.methods.botInfo().callPure().catch(console.error)
+          }
+          botInfo.address = bot
+          botInfo.category = bots[bot].category
+          botInfo.icon = bots[bot].icon
+          botInfo.name = bots[bot].name || info.name
+          botInfo.bot = bot
+          botInfo.alias = bot.split('.', 2)[1]
+          botInfo.description = bots[bot].description || info.description || ''
+          if (botInfo.description.length > 36) {
+            botInfo.description = botInfo.description.substring(0, 36) + '...'
+          }
+          resInfo.push(botInfo)
+        } else {
+          console.warn(`Bot ${bot} empty botInfo`)
         }
-        resInfo.push(botInfo)
       } catch (error) {
         console.error(error)
         console.log('Skip error bot: ' + bot)
