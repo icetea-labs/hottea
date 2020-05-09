@@ -1,5 +1,6 @@
 import { IceteaWeb3 } from '@iceteachain/web3'
 const defaultEndpoint = process.env.ICETEA_ENDPOINT || 'ws://localhost:26657/websocket'
+const altEndpoint = process.env.ALT_ENDPOINT || 'wss://rpc.icetea.io/websocket'
 export const endpoint = localStorage['endpoint'] || defaultEndpoint
 export const tweb3 = new IceteaWeb3(endpoint)
 export default tweb3
@@ -14,8 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
         tag.textContent = endpoint
 
         tag.addEventListener('click', () => {
-            console.log(endpoint)
-            const candidate = (endpoint === defaultEndpoint) ? 'wss://rpc.icetea.io/websocket' : defaultEndpoint
+            const candidate = (endpoint === defaultEndpoint) ? altEndpoint : defaultEndpoint
             if (window.confirm('Switch to ' + candidate + '?')) {
                 if (candidate === defaultEndpoint) {
                     localStorage.removeItem('endpoint')
