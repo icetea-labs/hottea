@@ -16,7 +16,9 @@ module.exports = {
     profile: path.resolve(__dirname, './src/profile.js'),
     address: path.resolve(__dirname, './src/address.js'),
     block: path.resolve(__dirname, './src/block.js'),
-    election: path.resolve(__dirname, './src/election.js')
+    election: path.resolve(__dirname, './src/election.js'),
+    playground: path.resolve(__dirname, './src/playground.js'),
+    loanhSetMatchInfo: path.resolve(__dirname, './src/loanhSetMatchInfo.js')
   },
 
   resolve: {
@@ -44,7 +46,9 @@ module.exports = {
   },
 
   plugins: [
-    new CopyWebpackPlugin([{ from: path.resolve(__dirname, 'src'), ignore: ['*.js'] }])
+    new CopyWebpackPlugin([
+      { from: path.resolve(__dirname, 'src'), ignore: ['*.js'] }
+    ])
   ],
 
   node: {

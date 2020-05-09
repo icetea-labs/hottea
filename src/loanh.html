@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>icetea - loanh</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        #content {
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        table { 
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+        table td, table th {
+            border: 1px solid #ccc;
+            padding: 3px 8px;
+        }
+        .hide {
+            display: none;
+        }
+        .transparent {
+            opacity: 0;
+        }
+        .transition {
+            transition: opacity 1s;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+
+        <form id='loginZone'>
+            <input type='password' id='key' size='42' placeholder="Prove that you are Loanh" autofocus required autocomplete="off">
+            <button type='submit'>I'm Loanh</button>
+        </form>
+        <div id='workZone' class='transition transparent hide'>
+            <br>
+            <div>
+                <button id="getUsers">List Users</button>
+            </div>
+            <br>
+            <div>
+                <select id='match'></select>
+                <button id="getWinners">Show Winners</button>
+                <button id="getPlayers">Show Players</button>
+            </div>
+            <br>
+            <div>Total: <span  id='count'></span> <button id='copy'>Copy to Clipboard</button>  <button id='export'>Download Text</button></div>
+            <br>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody id='userRows'></tbody>
+            </table>
+        </div>
+    </div>
+    <script src="playground.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-8597504-10"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-8597504-10');
+</script>
+
+</body>
+
+</html>
