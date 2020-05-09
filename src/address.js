@@ -21,13 +21,13 @@ const getAccountInfo = async address => {
 
 const getTxHistory = async address => {
   try {
-    const txFrom = await tweb3.searchTransactions(`system.from='${address}' AND system._ev = 'tx'`, { per_page: 100 });
-    const txTo = await tweb3.searchTransactions(`system.to='${address}' AND system._ev = 'tx'`, { per_page: 100 });
-    const txPayer = await tweb3.searchTransactions(`system.payer='${address}' AND system._ev = 'tx'`, { per_page: 100 });
-    
-    let all = txFrom.txs.concat(txTo.txs).concat(txPayer.txs); //.map(tweb3.utils.decodeTxResult);
+    const txFrom = await tweb3.searchTransactions(`system.from='${address}' AND system._ev = 'tx'`, { per_page: 100 })
+    const txTo = await tweb3.searchTransactions(`system.to='${address}' AND system._ev = 'tx'`, { per_page: 100 })
+    const txPayer = await tweb3.searchTransactions(`system.payer='${address}' AND system._ev = 'tx'`, { per_page: 100 })
+
+    let all = txFrom.txs.concat(txTo.txs).concat(txPayer.txs) // .map(tweb3.utils.decodeTxResult);
     // Remove duplicates tx
-    all = Object.values(all.reduce((txs, tx) => Object.assign(txs, { [tx.hash]: tx }), {}));
+    all = Object.values(all.reduce((txs, tx) => Object.assign(txs, { [tx.hash]: tx }), {}))
 
     if (all.length) {
       all.forEach(x => {

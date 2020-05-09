@@ -69,7 +69,7 @@ async function loadData () {
     // by default, getBlocks return latest 30 blocks
     document.getElementById('blocks').innerHTML = blockTemplate(fmtBlocks(myBlocks))
 
-    const myTxs = await tweb3.searchTransactions('tx.height>0', {order_by: 'desc'})
+    const myTxs = await tweb3.searchTransactions('tx.height>0', { order_by: 'desc' })
     if (myTxs.txs && myTxs.txs.length) {
       document.getElementById('transactions').innerHTML = txTemplate(fmtTxs(myTxs.txs))
     }

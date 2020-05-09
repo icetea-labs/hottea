@@ -27,7 +27,8 @@
       "/src/botui.js"
     ],
     "global": [
-      "BigInt"
+      "BigInt",
+      "localStorage"
     ]
   },
   "dependencies": {
