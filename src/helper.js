@@ -104,6 +104,9 @@ export function tryStringifyJson (p, replacer, space) {
   if (typeof p === 'string') {
     return p
   }
+  if (!replacer) {
+    replacer = (key, value) => typeof value === 'bigint' ? (String(value) + 'n') : value
+  }
   try {
     return JSON.stringify(p, replacer, space)
   } catch (e) {
