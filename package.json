@@ -34,7 +34,7 @@
   "dependencies": {
     "@babel/runtime": "^7.9.6",
     "@iceteachain/sunseed": "github:tradatech/sunseed",
-    "@iceteachain/web3": "^0.2.1",
+    "@iceteachain/web3": "^0.2.5",
     "ansi_up": "^4.0.4",
     "bip39": "^3.0.2",
     "botui": "^0.3.9",
