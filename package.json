@@ -11,6 +11,7 @@
     "postinstall": "webpack --config webpack.dev.js"
   },
   "keywords": [
+    "",
     "icetea",
     "hottea",
     "blockchain",
