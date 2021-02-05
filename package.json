@@ -1,7 +1,7 @@
 {
   "name": "@iceteachain/hottea",
   "version": "0.1.0",
-  "description": "icetea devtools",
+  "description": "polkafoundry devtools",
   "scripts": {
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "dev": "webpack-dev-server --config webpack.dev.js",
@@ -11,12 +11,13 @@
     "postinstall": "webpack --config webpack.dev.js"
   },
   "keywords": [
-    "",
+    "polkafoundry",
     "icetea",
     "hottea",
     "blockchain",
     "tendermint",
-    "icetea devtools"
+    "icetea devtools",
+    "polkafoundry devtools"
   ],
   "author": "Trada Tech",
   "license": "MIT",
